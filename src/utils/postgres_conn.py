@@ -93,17 +93,19 @@ def calcTime(startTime: datetime, endTime: datetime):
 
 def tableCleanUp(df):
 
-    df["Worked (hrs)"] = df.apply(lambda x: calcTime(x.clock_in, x.clock_out), axis=1)
+    try:
+        df["Worked (hrs)"] = df.apply(lambda x: calcTime(x.clock_in, x.clock_out), axis=1)
+        df["clock_in"] = df.clock_in.apply(lambda x: x.strftime("%H:%M") if type(x) is not pd._libs.tslibs.nattype.NaTType else np.nan)
+        df["clock_out"] = df.clock_out.apply(lambda x: x.strftime("%H:%M") if type(x) is not pd._libs.tslibs.nattype.NaTType else np.nan)
 
-    df["clock_in"] = df.clock_in.apply(lambda x: x.strftime("%H:%M") if type(x) is not pd._libs.tslibs.nattype.NaTType else np.nan)
-    df["clock_out"] = df.clock_out.apply(lambda x: x.strftime("%H:%M") if type(x) is not pd._libs.tslibs.nattype.NaTType else np.nan)
 
 
+        df.rename(columns={
+            "date": "Date",
+            "clock_in": "Start",
+            "clock_out": "End"
+        }, inplace=True)
 
-    df.rename(columns={
-        "date": "Date",
-        "clock_in": "Start",
-        "clock_out": "End"
-    }, inplace=True)
-
+    except:
+        df = pd.DataFrame()
     return df
