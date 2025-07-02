@@ -30,8 +30,21 @@ def main():
     from daily_log
     where "date" between '{start_date}' and '{end_date}'
     """
+    df = db.query(QUERY)
 
-    df = tableCleanUp(db.query(QUERY))
+    if df.shape[0] == 0:
+        df_display = pd.DataFrame(
+            {
+                "Date": [],
+                "Start": [],
+                "End": [],
+                "Worked (hrs)": []
+            }
+        )
+
+    else:
+
+        df_display = tableCleanUp(df)
     
     st.title("TimeCard")
     st.markdown(f"""Pay Period: {start_date.strftime("%A, %B %e")} thru {end_date.strftime("%A, %B %e")}
@@ -42,7 +55,7 @@ Pay Date: {pay_date.strftime("%A, %B %e")}
             """)
     
     try:
-        pay = (df['Worked (hrs)'].sum()*14)
+        pay = (df_display['Worked (hrs)'].sum()*14)
     
     except:
         pay = 0.00
@@ -51,11 +64,11 @@ Pay Date: {pay_date.strftime("%A, %B %e")}
 
     time_stamp = st.button("Time Stamp")
 
-    st.write(df)
+    st.write(df_display)
 
     if time_stamp:
         db.writeTimeStamp()
-        st.rerun()
+        # st.rerun()
 
 
 if __name__ == "__main__":
