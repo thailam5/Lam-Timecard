@@ -64,12 +64,15 @@ Pay Date: {pay_date.strftime("%A, %B %e")}
 
     time_stamp = st.button("Time Stamp")
 
-    st.write(df_display)
-
+    st.session_state["table"] = df_display
+    
     if time_stamp:
         db.writeTimeStamp()
+        st.session_state["table"] = tableCleanUp(db.query(QUERY))
         # st.rerun()
 
+    st.dataframe(st.session_state.table)
 
+    
 if __name__ == "__main__":
     main()
