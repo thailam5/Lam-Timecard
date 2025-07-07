@@ -44,7 +44,7 @@ def main():
 
     else:
 
-        df_display = tableCleanUp(df)
+        df_display = df.copy()
     
     st.title("TimeCard")
     st.markdown(f"""Pay Period: {start_date.strftime("%A, %B %e")} thru {end_date.strftime("%A, %B %e")}
@@ -68,7 +68,7 @@ Pay Date: {pay_date.strftime("%A, %B %e")}
     
     if time_stamp:
         db.writeTimeStamp()
-        st.session_state["table"] = tableCleanUp(db.query(QUERY))
+        st.session_state["table"] = db.query(QUERY)
 
 
     st.dataframe(st.session_state.table)
