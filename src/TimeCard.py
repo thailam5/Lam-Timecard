@@ -28,7 +28,7 @@ def main():
     QUERY = f"""
     select * 
     from daily_log
-    where "date" between '{start_date}' and '{end_date}'
+    where "Date" between '{start_date}' and '{end_date}'
     """
     df = db.query(QUERY)
 
@@ -69,7 +69,7 @@ Pay Date: {pay_date.strftime("%A, %B %e")}
     if time_stamp:
         db.writeTimeStamp()
         st.session_state["table"] = tableCleanUp(db.query(QUERY))
-        # st.rerun()
+
 
     st.dataframe(st.session_state.table)
 
