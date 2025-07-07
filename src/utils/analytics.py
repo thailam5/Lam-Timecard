@@ -6,16 +6,16 @@ def weeklyData():
     QUERY = """
 WITH week_count AS (
 SELECT
-	date
-	, EXTRACT('week' FROM date) AS week_no
-	, clock_in 
-	, clock_out
-	, EXTRACT(epoch FROM (clock_out-clock_in))/3600 AS work_time
+	"Date"
+	, EXTRACT('week' FROM "Date") AS week_no
+	, "Clocked In" 
+	, "Clocked Out"
+	, EXTRACT(epoch FROM ("Clocked Out"-"Clocked In"))/3600 AS work_time
 FROM daily_log dl
 )
 SELECT
 	week_no
-	,SUM(work_time) as hours_worked
+	,round(SUM(work_time),2) as hours_worked
 FROM week_count
 GROUP BY week_no
 """
