@@ -7,7 +7,7 @@ from datetime import datetime
 
 class postgres_conn():
     def __init__(self):
-        self.host = '10.0.0.28'
+        self.host = '10.0.0.143'
         self.port = 5432
         self.database = 'timecard'
         self.table = 'timecard'
@@ -36,7 +36,7 @@ class postgres_conn():
 
 class postgres_conn_tst():
     def __init__(self):
-        self.host = '10.0.0.28'
+        self.host = '10.0.0.143'
         self.port = 5432
         self.database = 'timecard'
         self.table = 'timecard'
