@@ -15,7 +15,7 @@ FROM daily_log dl
 )
 SELECT
 	week_no
-	,SUM(work_time) as hours_worked
+	,ROUND(SUM(work_time), 2) as hours_worked
 FROM week_count
 GROUP BY week_no
 """
