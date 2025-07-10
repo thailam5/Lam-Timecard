@@ -28,7 +28,7 @@ def main():
     QUERY = f"""
     select * 
     from daily_log
-    where "Date" between '{start_date}' and '{end_date}'
+    where date between '{start_date}' and '{end_date}'
     """
     df = db.query(QUERY)
 
@@ -44,7 +44,7 @@ def main():
 
     else:
 
-        df_display = df.copy()
+        df_display = tableCleanUp(df.copy())
     
     st.title("TimeCard")
     st.markdown(f"""Pay Period: {start_date.strftime("%A, %B %e")} thru {end_date.strftime("%A, %B %e")}
@@ -68,7 +68,7 @@ Pay Date: {pay_date.strftime("%A, %B %e")}
     
     if time_stamp:
         db.writeTimeStamp()
-        st.session_state["table"] = db.query(QUERY)
+        st.session_state["table"] = tableCleanUp(db.query(QUERY))
 
 
     st.dataframe(st.session_state.table)
