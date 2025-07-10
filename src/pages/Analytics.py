@@ -7,7 +7,7 @@ df = weeklyData()
 st.bar_chart(
     df,
     x="week_no",
-    y="hours_worked",
+    y="Pay",
     x_label="Week Number",
-    y_label="Hours Worked"
+    y_label="Pay"
 )

@@ -15,7 +15,7 @@ FROM daily_log dl
 )
 SELECT
 	week_no
-	,ROUND(SUM(work_time), 2) as hours_worked
+	,ROUND(14*SUM(work_time), 2) as "Pay"
 FROM week_count
 GROUP BY week_no
 """
