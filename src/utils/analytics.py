@@ -2,6 +2,7 @@ from .postgres_conn import postgres_conn_tst
 
 db = postgres_conn_tst()
 
+
 def weeklyData():
     QUERY = """
 WITH week_count AS (
