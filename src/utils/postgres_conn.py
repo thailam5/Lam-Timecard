@@ -69,6 +69,8 @@ class postgres_conn_tst:
     def writeTimeStamp(
         self,
     ):
+        
+        logger.info("Write Timestamp")
 
         nextAction = {"clock_in": "clock_out", "clock_out": "clock_in"}
 
@@ -82,5 +84,7 @@ class postgres_conn_tst:
             table="timecard",
             if_exists="append",
         )
+
+        logger.info("Write Timestamp Success")
 
         return logger.info(f"{datetime.today()} {nextAction.get(lastAction)}")
