@@ -7,7 +7,7 @@ from utils.timecardFunctions import getDateRange, dataPrep, calcPay
 
 db = postgres_conn_tst()
 
-logger.add("timecard.log")
+logger.add("C:/logs/timecard.log")
 
 
 def main():
