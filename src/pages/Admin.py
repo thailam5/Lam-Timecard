@@ -1,5 +1,7 @@
 import streamlit as st
 from datetime import datetime, timedelta
+import pandas as pd
+
 
 dateformat = "%Y-%m-%d"
 timeformat = "%H%M"
@@ -7,22 +9,38 @@ timeformat = "%H%M"
 
 with st.form("New Time", ):
     
+    timeIn, timeOut = st.columns(2)
 
-    dateinput = st.text_input("Date")
-    timeinput = st.text_input("Time")
+    with timeIn:
+
+        indateinput = st.date_input("Date In")
+        intimeinput = st.time_input("Time In")
+
+    with timeOut:
+    
+        outdateinput = st.date_input("Date Out")
+        outtimeinput = st.time_input("Time Out")
 
     submitted = st.form_submit_button("Submit")
 
-# datetime.striptime(st.text_input("Time"), timeformat)
-
-
-
 
 if submitted:
-    # st.write(dateinput)
-    date = datetime.strptime(dateinput, dateformat)
-    time = datetime.strptime(timeinput, timeformat)
-    st.write(f"TimeStamp: {date} {time}")
 
-    st.write(date + timedelta(time))
-    # st.write(date.strftime("%m-%d-%Y"))
+    df = pd.DataFrame(
+        {
+            "date": [
+                indateinput,
+                outdateinput
+            ],
+            "action": [
+                "clock_in",
+                "clock_out"
+            ],
+            "time": [
+                datetime.combine(indateinput, intimeinput),
+                datetime.combine(outdateinput, outtimeinput)
+            ]
+        }
+    )
+
+    st.dataframe(df)
